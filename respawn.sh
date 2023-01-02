@@ -46,11 +46,7 @@ mackup restore
 # Reinstall VSCode extensions
 cat $HOME/.vscode/extensions/extensions.txt | xargs -L 1 code --install-extension
 
-# Restore iTerm2 settings
-defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$HOME/"
-defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
-
 # Set MacOS preferences
-source $HOME/Repos/dotfiles/macos
+source $HOME/Repos/dotfiles/macprefs.sh
 
 echo "It's over!"
