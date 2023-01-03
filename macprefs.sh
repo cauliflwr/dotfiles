@@ -38,6 +38,9 @@ defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
 
 # Trackpad: enable tap to click for this user and for the login screen
 
+# Increate key repeat speed
+defaults write NSGlobalDomain KeyRepeat -int 1
+
 ###############################################################################
 # Energy saving                                                               #
 ###############################################################################
