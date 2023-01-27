@@ -9,12 +9,12 @@ if test ! $(which brew); then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
   # For M1
-  # echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zshrc
-  # eval "$(/opt/homebrew/bin/brew shellenv)"
+  echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zshrc
+  eval "$(/opt/homebrew/bin/brew shellenv)"
   
   # For Intel
-  echo 'eval "$(/usr/local/bin/brew shellenv)"' >> $HOME/.zshrc
-  eval "$(/usr/local/bin/brew shellenv)"
+  # echo 'eval "$(/usr/local/bin/brew shellenv)"' >> $HOME/.zshrc
+  # eval "$(/usr/local/bin/brew shellenv)"
 fi
 
 # Symlink the .Brewfile
