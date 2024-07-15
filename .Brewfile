@@ -1,8 +1,5 @@
 # Taps - tapping cask and core is no longer necessary
 tap "homebrew/bundle"
-# tap "homebrew/cask"
-# tap "homebrew/core"
-tap "homebrew/cask-fonts"
 
 # Brews
 brew "ansible"
