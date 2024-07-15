@@ -1,0 +1,5 @@
+---
+- name: "fzf | Install"
+  community.general.homebrew_cask:
+    name: fzf
+    state: present

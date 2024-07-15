@@ -1,0 +1,43 @@
+# Import additional configs - like a colorscheme
+import = [
+    "~/.config/alacritty/themes/one_dark.toml",
+    #"~/.config/alacritty/themes/material_theme.toml",
+    #"~/.config/alacritty/themes/nord.toml",
+    #"~/.config/alacritty/themes/nordic.toml",
+]
+
+# Automatically reload the Alacritty config
+live_config_reload = true
+
+# Set the terminal emulator type
+[env]
+TERM = "xterm-256color"
+
+# Some defaults based on an article I found
+[window]
+decorations = "buttonless"
+dynamic_padding = false
+opacity = 0.95
+
+[window.padding]
+x = 15
+y = 10
+
+[font]
+size = 13.5
+
+[font.bold]
+family = "FiraCode Nerd Font Mono"
+style = "heavy"
+
+[font.bold_italic]
+family = "FiraCode Nerd Font Mono"
+style = "Heavy Italic"
+
+[font.italic]
+family = "FiraCode Nerd Font Mono"
+style = "Medium Italic"
+
+[font.normal]
+family = "FiraCode Nerd Font Mono"
+style = "Medium"

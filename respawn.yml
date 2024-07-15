@@ -1,0 +1,7 @@
+---
+- name: "Configure Mac"
+  hosts: localhost
+  connection: local
+  roles:
+    - role: alacritty
+    - role: fzf
