@@ -37,8 +37,6 @@ HOT="${ORANGE}\xF0\x9F\x94\xA5${NC}"
 WARNING="${RED}\xF0\x9F\x9A\xA8${NC}"
 RIGHT_ANGLE="${GREEN}\xE2\x88\x9F${NC}"
 
-brewInstalled=$(which brew)
-
 echo ""
 if read -q "RES?ARe you ready to get started? [N/n]: "; then
     echo "\n${HOT}${HOT} Let's go! ${HOT}${HOT}"
@@ -51,7 +49,7 @@ fi
 
 # Check for and install Homebrew
 echo "Verifying that Homebrew is installed..."
-if [[ ! $(which brew) ]]; then
+if [[ $(which brew) == "brew not found" ]]; then
     
     # Intall Homebrew
     echo "It is not, installing..."
