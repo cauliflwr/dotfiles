@@ -1,0 +1,10 @@
+---
+- name: "Fonts | Install Fira Code"
+  community.general.homebrew_cask:
+    name: font-fira-code
+    state: present
+
+- name: "Fonts | Install Fira Code Nerd Font"
+  community.general.homebrew_cask:
+    name: font-fira-code-nerd-font
+    state: present
