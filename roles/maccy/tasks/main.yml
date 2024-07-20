@@ -1,6 +1,6 @@
 ---
 # https://formulae.brew.sh/cask/maccy
 - name: "Maccy | Install"
-  community.general.homebrew:
+  community.general.homebrew_cask:
     name: neovim
     state: present
