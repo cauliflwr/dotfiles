@@ -1,5 +1,5 @@
 ---
-- name: "Configure Mac"
+- name: "Configure macOS"
   hosts: localhost
   connection: local
   roles:
