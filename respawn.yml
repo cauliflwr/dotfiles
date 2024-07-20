@@ -6,3 +6,4 @@
     - role: alacritty
     - role: fzf
     - role: fonts
+    - role: awscli
