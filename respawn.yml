@@ -4,6 +4,8 @@
   connection: local
   roles:
     - role: alacritty
+    - role: awscli
     - role: fzf
     - role: fonts
-    - role: awscli
+    - role: maccy
+    - role: neovim
