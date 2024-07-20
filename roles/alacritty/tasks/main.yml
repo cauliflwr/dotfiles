@@ -1,4 +1,5 @@
 ---
+# https://formulae.brew.sh/formula/ansible
 - name: "Alacritty | Install"
   community.general.homebrew_cask:
     name: alacritty

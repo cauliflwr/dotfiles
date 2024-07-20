@@ -1,9 +1,11 @@
 ---
+# https://formulae.brew.sh/cask/font-fira-code
 - name: "Fonts | Install Fira Code"
   community.general.homebrew_cask:
     name: font-fira-code
     state: present
 
+# https://formulae.brew.sh/cask/font-fira-code-nerd-font 
 - name: "Fonts | Install Fira Code Nerd Font"
   community.general.homebrew_cask:
     name: font-fira-code-nerd-font
