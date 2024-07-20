@@ -1,8 +1,8 @@
 #!/bin/zsh
 
-# Modified / inspired by:
-## https://github.com/driesvints/dotfiles
-## https://github.com/techdufus/dotfiles
+# Modified from and inspired by:
+# - https://github.com/driesvints/dotfiles
+# - https://github.com/techdufus/dotfiles
 
 # color codes
 RESTORE='\033[0m'
@@ -73,9 +73,14 @@ fi
 # Update Homebrew recipes
 brew update
 
-# Install primary dependencies with bundle
+# Install core Homebrew managed dependencies with bundle
+echo ""
+echo "Installling core Homebrew managed dependencies..."
 brew tap homebrew/bundle
 brew bundle --file="./.Brewfile"
+
+# Install watchdog for use with beautiful_output
+python3 -m pip install -U watchdog --break-system-packages
 
 # Complete setup with Ansible
 echo "Preparing to complete setup with Ansible..."
