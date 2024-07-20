@@ -4,3 +4,11 @@
   community.general.homebrew:
     name: fzf
     state: present
+
+- name: "fzf | Configure"
+  block:
+# https://formulae.brew.sh/formula/bat
+    - name: fzf | Install Bat
+      community.general.homebrew:
+        name: bat
+        state: present
