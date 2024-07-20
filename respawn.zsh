@@ -38,11 +38,11 @@ WARNING="${RED}\xF0\x9F\x9A\xA8${NC}"
 RIGHT_ANGLE="${GREEN}\xE2\x88\x9F${NC}"
 
 echo ""
-if read -q "RES?ARe you ready to get started? [N/n]: "; then
-    echo "\n${HOT}${HOT} Let's go! ${HOT}${HOT}"
+if read -q "RES?Preparing to rebuild your macOs config, are you ready to get started y/[n]?"; then
+    echo "\n${HOT} Let's go!"
     echo "Starting resurrect and refresh..."
 else
-    echo "${X_MARK}${X_MARK} Exiting. ${X_MARK}${X_MARK}"
+    echo "\n${X_MARK} Exiting."
     exit 0
 fi
 
