@@ -5,9 +5,13 @@
   tasks:
     - include_role:
         name: "{{ item }}"
+        apply:
+          tags: always
       loop: "{{ default_roles }}"
       tags: always
     - include_role:
         name: "{{ item }}"
+        apply:
+          tags: personal, never
       loop: "{{ personal_roles }}"
       tags: personal, never
