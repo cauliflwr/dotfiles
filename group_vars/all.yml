@@ -1,0 +1,22 @@
+default_roles:
+  - alacritty
+  - awscli
+  - balenaetcher
+  - brave
+  - docker
+  - firefox
+  - fonts
+  - fzf
+  - git
+  - neovim
+  - nodenv
+  - rectangle
+  - starship
+  - vscode
+  - workspaces
+
+personal_roles:
+  - maccy
+  - nextcloud
+  - obsidian
+  - tailscale
