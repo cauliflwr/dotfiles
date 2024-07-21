@@ -4,8 +4,11 @@
   connection: local
   roles:
     - role: alacritty
+    - role: authy
     - role: awscli
     - role: fzf
     - role: fonts
     - role: maccy
     - role: neovim
+    - role: tailscale
+    - role: vscode
