@@ -38,7 +38,7 @@ WARNING="${RED}\xF0\x9F\x9A\xA8${NC}"
 RIGHT_ANGLE="${GREEN}\xE2\x88\x9F${NC}"
 
 echo ""
-if read -q "RES?Preparing to rebuild your macOs config, are you ready to get started y/[n]?"; then
+if read -q "RES?Preparing to rebuild your macOS config, are you ready to get started y/[n]? "; then
     echo "\n${HOT} Let's go!"
     echo "Starting resurrect and refresh..."
 else
@@ -67,7 +67,7 @@ if [[ $(which brew) == "brew not found" ]]; then
     fi
     echo "Done."
 else
-    echo "It is. ${CHECK_MARK}"
+    echo "${CHECK_MARK} It is."
 fi
 
 # Update Homebrew recipes
@@ -84,4 +84,6 @@ python3 -m pip install -U watchdog --break-system-packages
 
 # Complete setup with Ansible
 echo "Preparing to complete setup with Ansible..."
-ansible-playbook "./respawn.yml" 
+ansible-playbook "./respawn.yml"
+echo ""
+echo "${CHECK_MARK} Resurrect complete."
