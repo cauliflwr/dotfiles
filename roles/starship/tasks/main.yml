@@ -1,0 +1,6 @@
+---
+# https://formulae.brew.sh/formula/starship
+- name: "Starship | Install"
+  community.general.homebrew:
+    name: starship
+    state: present

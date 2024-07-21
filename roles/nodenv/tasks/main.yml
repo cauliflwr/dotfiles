@@ -1,0 +1,6 @@
+---
+# https://formulae.brew.sh/formula/nodenv
+- name: "Nodenv | Install"
+  community.general.homebrew:
+    name: nodenv
+    state: present

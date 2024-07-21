@@ -1,0 +1,6 @@
+---
+# https://formulae.brew.sh/formula/git
+- name: "Git | Install"
+  community.general.homebrew:
+    name: git
+    state: present
