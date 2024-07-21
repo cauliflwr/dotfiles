@@ -37,7 +37,11 @@ HOT="${ORANGE}\xF0\x9F\x94\xA5${NC}"
 WARNING="${RED}\xF0\x9F\x9A\xA8${NC}"
 RIGHT_ANGLE="${GREEN}\xE2\x88\x9F${NC}"
 
+# Whether or not to do a full resurrect
 RESURRECT=""
+
+# Whether to limit the respawn to work approved software
+PERSONAL=true
 
 # Check for and install Homebrew
 checkForHomebrew() {
@@ -90,7 +94,14 @@ main() {
     # Respawn
     echo ""
     echo "Starting respawn with Ansible..."
-    ansible-playbook "./respawn.yml" --tags "personal"
+    
+    if [[ $PERSONAL = true ]]; then
+        echo "Including all software..."
+        ansible-playbook "./respawn.yml" --tags "personal"
+    else
+        echo "Limitin to work approved software..."
+        ansible-playbook "./respawn.yml"
+    fi
 
     echo ""
     echo "${CHECK_MARK} Respawn complete."
@@ -104,6 +115,8 @@ while [[ "$#" -gt 0 ]]; do
             shift;;
         --respawn) RESURRECT=false
             shift;;
+        --work) PERSONAL=false
+            shift;;
         *) echo "Unknown parameter: $1"
             exit 1;;
     esac
@@ -112,14 +125,27 @@ done
 if [[ $RESURRECT == "" ]]; then
     echo ""
     echo "Would you like to resurrect or respawn?"
-    vared -p "[r]esurrect, [re]spawn, or [e]exit (default: [e]xit): " -c RES
+    vared -p "[r]esurrect, [re]spawn, or [e]exit (default: [e]xit): " -c RES1
     #if read -q "RES?Preparing to rebuild your macOS config, are you ready to get started y/[n]? "; then
-    case $RES in
-        r) RESURRECT=true
+    case $RES1 in
+        "r"|"resurrect") RESURRECT=true
             ;;
-        re) RESURRECT=false
+        "re"|"respawn") RESURRECT=false
             ;;
-        e) echo "\n${X_MARK} Exiting."
+        "e"|"exit") echo "\n${X_MARK} Exiting."
+            exit 0;;
+        *) echo "Unknown option: $RES"
+            exit 1;;
+    esac
+    echo "Respawn with personal or work approved software?"
+    vared -p "[p]ersonal, [w]ork, or [e]exit (default: [p]ersonal): " -c RES2
+    #if read -q "RES?Preparing to rebuild your macOS config, are you ready to get started y/[n]? "; then
+    case $RES2 in
+        "p"|"personal") PERSONAL=true
+            ;;
+        "w"|"work") PERSONAL=false
+            ;;
+        "e"|"exit") echo "\n${X_MARK} Exiting."
             exit 0;;
         *) echo "Unknown option: $RES"
             exit 1;;
