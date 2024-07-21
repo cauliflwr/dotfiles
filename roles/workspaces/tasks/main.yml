@@ -1,0 +1,6 @@
+---
+# https://formulae.brew.sh/cask/workspaces
+- name: "AWS Workspaces | Install"
+  community.general.homebrew_cask:
+    name: amazon-workspaces
+    state: present

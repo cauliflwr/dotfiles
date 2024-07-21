@@ -1,0 +1,6 @@
+---
+# https://formulae.brew.sh/cask/rectangle-pro
+- name: "Rectangle | Install"
+  community.general.homebrew_cask:
+    name: rectangle-pro
+    state: present
