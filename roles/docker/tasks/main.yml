@@ -1,0 +1,6 @@
+---
+# https://formulae.brew.sh/cask/docker?ref=trap.jp
+- name: "Docker CE | Install"
+  community.general.homebrew_cask:
+    name: docker
+    state: present
