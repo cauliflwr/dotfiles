@@ -15,13 +15,14 @@ TERM = "xterm-256color"
 
 # Some defaults based on an article I found
 [window]
-decorations = "buttonless"
+decorations = "transparent"
 dynamic_padding = false
-opacity = 0.95
+opacity = 0.85
+blur = true
 
 [window.padding]
 x = 15
-y = 10
+y = 30
 
 [font]
 size = 13.5
