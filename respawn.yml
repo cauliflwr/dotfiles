@@ -4,14 +4,19 @@
   connection: local
   tasks:
     - include_role:
-        name: "{{ item }}"
+        name: "{{ roles_item }}"
         apply:
           tags: always
+      loop_control:
+        loop_var: roles_item
       loop: "{{ default_roles }}"
       tags: always
+
     - include_role:
-        name: "{{ item }}"
+        name: "{{ roles_item }}"
         apply:
           tags: personal, never
+      loop_control:
+        loop_var: roles_item
       loop: "{{ personal_roles }}"
       tags: personal, never
