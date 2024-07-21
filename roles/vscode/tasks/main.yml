@@ -1,0 +1,6 @@
+---
+# https://formulae.brew.sh/cask/visual-studio-code
+- name: "VS Code | Install"
+  community.general.homebrew_cask:
+    name: visual-studio-code
+    state: present

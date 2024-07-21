@@ -1,0 +1,6 @@
+---
+# https://formulae.brew.sh/cask/authy
+- name: "Authy | Install"
+  community.general.homebrew_cask:
+    name: authy 
+    state: present
