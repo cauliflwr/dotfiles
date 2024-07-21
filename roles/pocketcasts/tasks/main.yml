@@ -1,0 +1,6 @@
+---
+# https://formulae.brew.sh/cask/pocket-casts
+- name: "Pocket Casts | Install"
+  community.general.homebrew_cask:
+    name: pocket-casts 
+    state: present
