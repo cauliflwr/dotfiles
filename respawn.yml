@@ -16,6 +16,7 @@
     - role: neovim
     - role: nextcloud
     - role: nodenv
+    - role: obsidian
     - role: starship
     - role: tailscale
     - role: vscode
