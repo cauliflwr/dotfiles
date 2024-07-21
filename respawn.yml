@@ -6,9 +6,12 @@
     - role: alacritty
     - role: authy
     - role: awscli
+    - role: docker
+    - role: firefox
     - role: fzf
     - role: fonts
     - role: maccy
     - role: neovim
+    - role: nextcloud
     - role: tailscale
     - role: vscode
