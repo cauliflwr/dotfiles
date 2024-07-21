@@ -1,0 +1,6 @@
+---
+# https://formulae.brew.sh/cask/balenaetcher
+- name: "Etcher | Install"
+  community.general.homebrew_cask:
+    name: balenaetcher
+    state: present
