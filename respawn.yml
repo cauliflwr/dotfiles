@@ -2,23 +2,12 @@
 - name: "Configure macOS"
   hosts: localhost
   connection: local
-  roles:
-    - role: alacritty
-    - role: awscli
-    - role: balenaetcher
-    - role: brave
-    - role: docker
-    - role: firefox
-    - role: fzf
-    - role: fonts
-    - role: git
-    - role: maccy
-    - role: neovim
-    - role: nextcloud
-    - role: nodenv
-    - role: obsidian
-    - role: rectangle
-    - role: starship
-    - role: tailscale
-    - role: vscode
-    - role: workspaces
+  tasks:
+    - include_role:
+        name: "{{ item }}"
+      loop: "{{ default_roles }}"
+      tags: always
+    - include_role:
+        name: "{{ item }}"
+      loop: "{{ personal_roles }}"
+      tags: personal, never
