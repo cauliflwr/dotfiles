@@ -4,7 +4,6 @@
   connection: local
   roles:
     - role: alacritty
-    - role: authy
     - role: awscli
     - role: docker
     - role: firefox
