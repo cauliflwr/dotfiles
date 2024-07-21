@@ -17,6 +17,8 @@
     - role: nextcloud
     - role: nodenv
     - role: obsidian
+    - role: rectangle
     - role: starship
     - role: tailscale
     - role: vscode
+    - role: workspaces
