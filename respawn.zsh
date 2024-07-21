@@ -37,53 +37,95 @@ HOT="${ORANGE}\xF0\x9F\x94\xA5${NC}"
 WARNING="${RED}\xF0\x9F\x9A\xA8${NC}"
 RIGHT_ANGLE="${GREEN}\xE2\x88\x9F${NC}"
 
-echo ""
-if read -q "RES?Preparing to rebuild your macOS config, are you ready to get started y/[n]? "; then
-    echo "\n${HOT} Let's go!"
-    echo "Starting resurrect and refresh..."
-else
-    echo "\n${X_MARK} Exiting."
-    exit 0
-fi
-
+RESURRECT=""
 
 # Check for and install Homebrew
-echo "Verifying that Homebrew is installed..."
-if [[ $(which brew) == "brew not found" ]]; then
-    
-    # Intall Homebrew
-    echo "It is not, installing..."
-    #/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    
-    # Add Homebrew install location to shell
-    if [[ $(machine) =~ arm64* ]]; then
-        # For Apple silicon
-        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zshrc
-        eval "$(/opt/homebrew/bin/brew shellenv)"
+checkForHomebrew() {
+    echo "Verifying that Homebrew is installed..."
+    if [[ $(which brew) == "brew not found" ]]; then
+        
+        # Intall Homebrew
+        echo "It is not, installing..."
+        #/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        
+        # Add Homebrew install location to shell
+        if [[ $(machine) =~ arm64* ]]; then
+            # For Apple silicon
+            echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zshrc
+            eval "$(/opt/homebrew/bin/brew shellenv)"
+        else
+            # For Intel
+            echo 'eval "$(/usr/local/bin/brew shellenv)"' >> $HOME/.zshrc
+            eval "$(/usr/local/bin/brew shellenv)"
+        fi
+        echo "Done."
     else
-        # For Intel
-        echo 'eval "$(/usr/local/bin/brew shellenv)"' >> $HOME/.zshrc
-        eval "$(/usr/local/bin/brew shellenv)"
+        echo "${CHECK_MARK} It is."
     fi
-    echo "Done."
-else
-    echo "${CHECK_MARK} It is."
+}
+
+main() {
+    echo ""
+    echo "\n${HOT} Let's go!"
+
+    # Check for Homebrew on resurrect
+    if [[ $RESURRECT = true ]]; then
+        echo ""
+        echo "Starting resurrect..."    
+        checkForHomebrew
+
+        # Use bundle to make sure core Homebrew managed dependencies are installed
+        echo "Installling core Homebrew managed dependencies..."
+        brew tap homebrew/bundle
+        brew bundle --file="./.Brewfile"
+
+        # Install watchdog for use with beautiful_output.py
+        echo "Installing watchdog..."
+        python3 -m pip install -U watchdog --break-system-packages
+        
+        echo ""
+        echo "${CHECK_MARK} Resurrect complete."
+    fi
+
+    # Respawn
+    echo ""
+    echo "Starting respawn with Ansible..."
+    ansible-playbook "./respawn.yml" --tags "personal"
+
+    echo ""
+    echo "${CHECK_MARK} Respawn complete."
+}
+
+
+##### Begin #####
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+        --resurrect) RESURRECT=true
+            shift;;
+        --respawn) RESURRECT=false
+            shift;;
+        *) echo "Unknown parameter: $1"
+            exit 1;;
+    esac
+done
+
+if [[ $RESURRECT == "" ]]; then
+    echo ""
+    echo "Would you like to resurrect or respawn?"
+    vared -p "[r]esurrect, [re]spawn, or [e]exit (default: [e]xit): " -c RES
+    #if read -q "RES?Preparing to rebuild your macOS config, are you ready to get started y/[n]? "; then
+    case $RES in
+        r) RESURRECT=true
+            ;;
+        re) RESURRECT=false
+            ;;
+        e) echo "\n${X_MARK} Exiting."
+            exit 0;;
+        *) echo "Unknown option: $RES"
+            exit 1;;
+    esac
 fi
 
-# Update Homebrew recipes
-brew update
-
-# Install core Homebrew managed dependencies with bundle
-echo ""
-echo "Installling core Homebrew managed dependencies..."
-brew tap homebrew/bundle
-brew bundle --file="./.Brewfile"
-
-# Install watchdog for use with beautiful_output
-python3 -m pip install -U watchdog --break-system-packages
-
-# Complete setup with Ansible
-echo "Preparing to complete setup with Ansible..."
-ansible-playbook "./respawn.yml"
-echo ""
-echo "${CHECK_MARK} Resurrect complete."
+# Run main
+main
+exit 0
