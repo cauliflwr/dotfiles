@@ -9,8 +9,11 @@
     - role: firefox
     - role: fzf
     - role: fonts
+    - role: git
     - role: maccy
     - role: neovim
     - role: nextcloud
+    - role: nodenv
+    - role: starship
     - role: tailscale
     - role: vscode
