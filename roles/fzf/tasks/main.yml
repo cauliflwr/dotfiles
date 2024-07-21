@@ -1,14 +1,14 @@
 ---
 # https://formulae.brew.sh/formula/fzf
-- name: "fzf | Install"
+- name: "FZF | Install"
   community.general.homebrew:
-    name: fzf
+    name: FZF
     state: present
 
-- name: "fzf | Configure"
+- name: "FZF | Configure"
   block:
 # https://formulae.brew.sh/formula/bat
-    - name: fzf | Install Bat
+    - name: FZF | Install Bat
       community.general.homebrew:
         name: bat
         state: present
