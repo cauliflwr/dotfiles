@@ -1,10 +1,21 @@
 #!/bin/zsh
 
+################################################################################
 # Modified from and inspired by:
 # - https://github.com/driesvints/dotfiles
 # - https://github.com/techdufus/dotfiles
+################################################################################
 
-# color codes
+
+############################## Script globals ##################################
+# Whether or not to do a full resurrect
+RESURRECT=""
+
+# Whether to limit the respawn to work approved software
+PERSONAL=true
+
+############################# Utility globals ##################################
+# Color codes
 RESTORE='\033[0m'
 NC='\033[0m'
 BLACK='\033[00;30m'
@@ -26,7 +37,7 @@ LCYAN='\033[01;36m'
 WHITE='\033[01;37m'
 OVERWRITE='\e[1A\e[K'
 
-#emoji codes
+# Emoji codes
 CHECK_MARK="${GREEN}\xE2\x9C\x94${NC}"
 X_MARK="${RED}\xE2\x9C\x96${NC}"
 PIN="${RED}\xF0\x9F\x93\x8C${NC}"
@@ -37,12 +48,8 @@ HOT="${ORANGE}\xF0\x9F\x94\xA5${NC}"
 WARNING="${RED}\xF0\x9F\x9A\xA8${NC}"
 RIGHT_ANGLE="${GREEN}\xE2\x88\x9F${NC}"
 
-# Whether or not to do a full resurrect
-RESURRECT=""
 
-# Whether to limit the respawn to work approved software
-PERSONAL=true
-
+############################# Functions ########################################
 # Check for and install Homebrew
 checkForHomebrew() {
     echo "Verifying that Homebrew is installed..."
@@ -52,7 +59,8 @@ checkForHomebrew() {
         echo "It is not, installing..."
         #/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         
-        # Add Homebrew install location to shell
+        # Add Homebrew install location to shell so it can be used before the full
+        # .zshrc config is restored
         if [[ $(machine) =~ arm64* ]]; then
             # For Apple silicon
             echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zshrc
@@ -68,6 +76,7 @@ checkForHomebrew() {
     fi
 }
 
+# Run resurrect or respawn based on selected options
 main() {
     echo ""
     echo "\n${HOT} Let's go!"
@@ -107,8 +116,8 @@ main() {
     echo "${CHECK_MARK} Respawn complete."
 }
 
-
-##### Begin #####
+############################ Main execution ####################################
+# Parse command flags
 while [[ "$#" -gt 0 ]]; do
     case $1 in
         --resurrect) RESURRECT=true
@@ -122,11 +131,11 @@ while [[ "$#" -gt 0 ]]; do
     esac
 done
 
+# Prompt user to select modes if not previously provided
 if [[ $RESURRECT == "" ]]; then
     echo ""
     echo "Would you like to resurrect or respawn?"
     vared -p "[r]esurrect, [re]spawn, or [e]exit (default: [e]xit): " -c RES1
-    #if read -q "RES?Preparing to rebuild your macOS config, are you ready to get started y/[n]? "; then
     case $RES1 in
         "r"|"resurrect") RESURRECT=true
             ;;
@@ -139,7 +148,6 @@ if [[ $RESURRECT == "" ]]; then
     esac
     echo "Respawn with personal or work approved software?"
     vared -p "[p]ersonal, [w]ork, or [e]exit (default: [p]ersonal): " -c RES2
-    #if read -q "RES?Preparing to rebuild your macOS config, are you ready to get started y/[n]? "; then
     case $RES2 in
         "p"|"personal") PERSONAL=true
             ;;
@@ -152,6 +160,6 @@ if [[ $RESURRECT == "" ]]; then
     esac
 fi
 
-# Run main
+# Run main function to resurrect or respawn
 main
 exit 0
