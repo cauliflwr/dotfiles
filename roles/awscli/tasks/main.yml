@@ -1,6 +1,9 @@
 ---
 # https://formulae.brew.sh/formula/awscli
-- name: "AWSCLI | Install"
-  community.general.homebrew:
-    name: awscli
-    state: present
+- name: "AWSCLI | Configuration"
+  tags: configure, never
+  block:
+    - name: "AWSCLI | Install"
+      community.general.homebrew:
+        name: awscli
+        state: present
