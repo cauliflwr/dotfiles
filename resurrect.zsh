@@ -11,8 +11,8 @@
 # Whether or not to do a full resurrect
 RESURRECT=""
 
-# Whether to limit the respawn to work approved software
-PERSONAL=true
+# Exclude software less likely to be corporate approved
+PERSONAL=false
 
 ############################# Utility globals ##################################
 # Color codes
@@ -124,7 +124,7 @@ while [[ "$#" -gt 0 ]]; do
             shift;;
         --respawn) RESURRECT=false
             shift;;
-        --work) PERSONAL=false
+        --personal) PERSONAL=true
             shift;;
         *) echo "Unknown parameter: $1"
             exit 1;;
@@ -146,7 +146,7 @@ if [[ $RESURRECT == "" ]]; then
         *) echo "Unknown option: $RES"
             exit 1;;
     esac
-    echo "Respawn with personal or work approved software?"
+    echo "Respawn with all software?"
     vared -p "[p]ersonal, [w]ork, or [e]exit (default: [p]ersonal): " -c RES2
     case $RES2 in
         "p"|"personal") PERSONAL=true
