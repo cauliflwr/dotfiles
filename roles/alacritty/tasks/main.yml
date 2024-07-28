@@ -7,47 +7,9 @@
 
 - name: "Alacritty | Configure"
   block:
-    - name: Alacritty | Verify the Alacritty config directory exists
-      stat:
-        path: ~/.config/alacritty
-      register: alacritty_dir
-      
-    - name: Alacritty | Debug
-      debug:
-        msg: "The Alacritty directory does not exist"
-      when: alacritty_dir.stat.exists == false
-
-    - name: Alacritty | Create the Alacritty config directory
-      file:
-        path: ~/.config/alacritty
-        state: directory
-        mode: '0755'
-      when: alacritty_dir.stat.exists == false
-
-    - name: Alacritty | Verify the Alacritty themes directory exists
-      stat:
-        path: ~/.config/alacritty/themes
-      register: alacritty_themes
-
-    - name: Alacritty | Debug
-      debug:
-        msg: "The Alacritty themes directory does not exist"
-      when: alacritty_themes.stat.exists == false
-
-    - name: Alacritty | Create the Alacritty themes directory
-      file:
-        path: ~/.config/alacritty/themes
-        state: directory
-        mode: '0755'
-      when: alacritty_themes.stat.exists == false
-
-    - name: Alacritty | Copy Alacritty config
-      copy:
-        src: alacritty/alacritty.toml
-        dest: ~/.config/alacritty/alacritty.toml 
-
-    - name: Alacritty | Copy Alacritty themes
-      copy:
-        src: alacritty/themes/
-        dest: ~/.config/alacritty/themes/
-      with_fileglob: alacritty/themes/*
+    - name: Alacritty | Synchronize Alacritty config 
+      ansible.posix.synchronize:
+        src: alacritty/ 
+        dest: ~/.config/alacritty/
+        delete: true
+        recursive: true
