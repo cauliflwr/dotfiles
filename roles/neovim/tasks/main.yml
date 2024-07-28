@@ -1,12 +1,13 @@
 ---
 # https://formulae.brew.sh/formula/neovim
-- name: "Neovim | Install"
-  community.general.homebrew:
-    name: neovim
-    state: present
-
-- name: "Neovim | Configure"
+- name: "Neovim | Configuration"
+  tags: configure, never
   block:
+    - name: "Neovim | Install"
+      community.general.homebrew:
+        name: neovim
+        state: present
+
     - name: Neovim | Synchronize Neovim config 
       ansible.posix.synchronize:
         src: nvim/ 
@@ -15,3 +16,10 @@
         recursive: true
         rsync_opts:
           - "--exclude=*.json"
+
+- name: "Neovim | Backup Configuration"
+  tags: backup, never
+  block:
+    - name: Neovim | Backup Neovim config files to dotfiles repo
+      debug:
+        msg: "Testing running backup via tag"

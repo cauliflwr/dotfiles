@@ -1,15 +1,23 @@
 ---
-# https://formulae.brew.sh/formula/ansible
-- name: "Alacritty | Install"
-  community.general.homebrew_cask:
-    name: alacritty
-    state: present
-
-- name: "Alacritty | Configure"
+# https://formulae.brew.sh/cask/alacritty
+- name: "Alacritty | Configuration"
+  tags: configure, never
   block:
+    - name: "Alacritty | Install"
+      community.general.homebrew_cask:
+        name: alacritty
+        state: present
+
     - name: Alacritty | Synchronize Alacritty config 
       ansible.posix.synchronize:
         src: alacritty/ 
         dest: ~/.config/alacritty/
         delete: true
         recursive: true
+        
+- name: "Alacritty | Backup Configuration"
+  tags: backup, never
+  block:
+    - name: "Alacritty | Backup Alacritty config files to dotfiles repo"
+      debug:
+        msg: "Testing running backup via tag"
