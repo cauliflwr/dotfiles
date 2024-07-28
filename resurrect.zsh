@@ -106,10 +106,10 @@ main() {
     
     if [[ $PERSONAL = true ]]; then
         echo "Including all software..."
-        ansible-playbook "./resurrect.yml" --tags "personal"
+        ansible-playbook "./resurrect.yml" --tags "personal,configure"
     else
-        echo "Limitin to work approved software..."
-        ansible-playbook "./resurrect.yml"
+        echo "Limiting to general software..."
+        ansible-playbook "./resurrect.yml" --tags "configure"
     fi
 
     echo ""
