@@ -17,9 +17,14 @@
         rsync_opts:
           - "--exclude=*.json"
 
-- name: "Neovim | Backup Configuration"
+- name: "Neovim | Backup configuration"
   tags: backup, never
   block:
-    - name: Neovim | Backup Neovim config files to dotfiles repo
-      debug:
-        msg: "Testing running backup via tag"
+    - name: Neovim | Backup Neovim config to dotfiles repo"
+      ansible.posix.synchronize:
+        src: ~/.config/nvim/ 
+        dest: nvim/
+        delete: true
+        recursive: true
+        rsync_opts:
+          - "--exclude=*.json"
