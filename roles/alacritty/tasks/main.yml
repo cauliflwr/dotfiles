@@ -18,6 +18,9 @@
 - name: "Alacritty | Backup Configuration"
   tags: backup, never
   block:
-    - name: "Alacritty | Backup Alacritty config files to dotfiles repo"
-      debug:
-        msg: "Testing running backup via tag"
+    - name: "Alacritty | Backup Alacritty config to dotfiles repo"
+      ansible.posix.synchronize:
+        src: ~/.config/alacritty/ 
+        dest: alacritty/
+        delete: true
+        recursive: true
