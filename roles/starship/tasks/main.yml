@@ -10,4 +10,4 @@
     - name: Starship | Synchronize Starship config 
       ansible.posix.synchronize:
         src: starship/starship.toml 
-        dest: ~/.config/test/starship.toml
+        dest: ~/.config/starship.toml
