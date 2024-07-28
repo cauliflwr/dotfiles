@@ -1,12 +1,13 @@
 ---
-# https://formulae.brew.sh/formula/starship
-- name: "Starship | Install"
-  community.general.homebrew:
-    name: starship
-    state: present
-
-- name: "Starship | Configure"
+- name: "Starship | Configuration"
+  tags: configure, never
   block:
+    # https://formulae.brew.sh/formula/starship
+    - name: "Starship | Install"
+      community.general.homebrew:
+        name: starship
+        state: present
+
     - name: Starship | Synchronize Starship config 
       ansible.posix.synchronize:
         src: starship/starship.toml 

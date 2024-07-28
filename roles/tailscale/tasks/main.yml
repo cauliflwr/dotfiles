@@ -1,6 +1,9 @@
 ---
-# https://formulae.brew.sh/formula/tailscale
-- name: "Tailscale | Install"
-  community.general.homebrew_cask:
-    name: tailscale
-    state: present
+- name: "Tailscale | Configuration"
+  tags: configure, never
+  block:
+    # https://formulae.brew.sh/formula/tailscale
+    - name: "Tailscale | Install"
+      community.general.homebrew_cask:
+        name: tailscale
+        state: present
