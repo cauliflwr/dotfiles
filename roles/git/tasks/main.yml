@@ -12,3 +12,11 @@
       ansible.posix.synchronize:
         src: git/.gitconfig 
         dest: ~/.gitconfig
+
+- name: "Git | Backup Configuration"
+  tags: backup, never
+  block:
+    - name: "Git | Backup Git config to dotfiles repo"
+      ansible.posix.synchronize:
+        src: ~/.gitconfig 
+        dest: git/.gitconfig

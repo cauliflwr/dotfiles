@@ -12,3 +12,11 @@
       ansible.posix.synchronize:
         src: starship/starship.toml 
         dest: ~/.config/starship.toml
+
+- name: "Starship | Backup Configuration"
+  tags: backup, never
+  block:
+    - name: "Starship | Backup Starship config to dotfiles repo"
+      ansible.posix.synchronize:
+        src: ~/.config/starship.toml 
+        dest: starship/starship.toml
