@@ -1,6 +1,9 @@
 ---
 # https://formulae.brew.sh/cask/nextcloud
-- name: "Nextcloud | Install"
-  community.general.homebrew_cask:
-    name: nextcloud
-    state: present
+- name: "Nextcloud | Configuration"
+  tags: configure, never
+  block:
+    - name: "Nextcloud | Install"
+      community.general.homebrew_cask:
+        name: nextcloud
+        state: present
