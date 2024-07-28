@@ -1,8 +1,8 @@
 ---
-# https://formulae.brew.sh/formula/neovim
 - name: "Neovim | Configuration"
   tags: configure, never
   block:
+    # https://formulae.brew.sh/formula/neovim
     - name: "Neovim | Install"
       community.general.homebrew:
         name: neovim

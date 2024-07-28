@@ -1,8 +1,8 @@
 ---
-# https://formulae.brew.sh/cask/brave-browser
 - name: "Brave | Configuration"
   tags: configure, never
   block:
+    # https://formulae.brew.sh/cask/brave-browser
     - name: "Brave | Install"
       community.general.homebrew_cask:
         name: brave-browser
