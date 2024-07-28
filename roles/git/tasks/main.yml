@@ -1,12 +1,13 @@
 ---
-# https://formulae.brew.sh/formula/git
-- name: "Git | Install"
-  community.general.homebrew:
-    name: git
-    state: present
-    
-- name: "Git | Configure"
+- name: "Git | Configuration"
+  tags: configure, never
   block:
+    # https://formulae.brew.sh/formula/git
+    - name: "Git | Install"
+      community.general.homebrew:
+        name: git
+        state: present
+    
     - name: Git | Synchronize Git config 
       ansible.posix.synchronize:
         src: git/.gitconfig 
