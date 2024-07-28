@@ -1,6 +1,9 @@
 ---
-# https://formulae.brew.sh/cask/obsidian
-- name: "Obsidian | Install"
-  community.general.homebrew_cask:
-    name: obsidian
-    state: present
+- name: Obsidian | Configuration"
+  tags: configure, never
+  block:
+    # https://formulae.brew.sh/cask/obsidian
+    - name: "Obsidian | Install"
+      community.general.homebrew_cask:
+        name: obsidian
+        state: present

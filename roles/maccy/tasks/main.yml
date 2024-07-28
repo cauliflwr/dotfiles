@@ -1,6 +1,9 @@
 ---
-# https://formulae.brew.sh/cask/maccy
-- name: "Maccy | Install"
-  community.general.homebrew_cask:
-    name: maccy
-    state: present
+- name: "Maccy | Configuration"
+  tags: configure, never
+  block:
+    # https://formulae.brew.sh/cask/maccy
+    - name: "Maccy | Install"
+      community.general.homebrew_cask:
+        name: maccy
+        state: present
