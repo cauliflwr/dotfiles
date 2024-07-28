@@ -1,0 +1,17 @@
+---
+# https://formulae.brew.sh/formula/neovim
+- name: "Neovim | Install"
+  community.general.homebrew:
+    name: neovim
+    state: present
+
+- name: "Neovim | Configure"
+  block:
+    - name: Neovim | Synchronize Neovim config 
+      ansible.posix.synchronize:
+        src: nvim/ 
+        dest: ~/.config/nvim/
+        delete: true
+        recursive: true
+        rsync_opts:
+          - "--exclude=*.json"
