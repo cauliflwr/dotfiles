@@ -4,3 +4,10 @@
   community.general.homebrew:
     name: git
     state: present
+    
+- name: "Git | Configure"
+  block:
+    - name: Git | Synchronize Git config 
+      ansible.posix.synchronize:
+        src: git/.gitconfig 
+        dest: ~/.gitconfig
