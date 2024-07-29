@@ -1,8 +1,8 @@
 ---
-- name: "System | Configure personal update settings"
+- name: "macOS | Configure personal update settings"
   tags: personal, never
   block:
-    - name: "System | Enable automatic updates"
+    - name: "macOS | Enable automatic updates"
       community.general.osx_defaults:
         domain: com.apple.commerce
         key: AutoUpdate
@@ -10,7 +10,7 @@
         value: true
         state: present
 
-    - name: "System | Enable automatic update check"
+    - name: "macOS | Enable automatic update check"
       community.general.osx_defaults:
         domain: com.apple.SoftwareUpdate
         key: AutomaticCheckEnabled
@@ -18,7 +18,7 @@
         value: true
         state: present
 
-    - name: "System | Set updates check to daily"
+    - name: "macOS | Set updates check to daily"
       community.general.osx_defaults:
         domain: com.apple.SoftwareUpdate
         key: ScheduleFrequency
@@ -26,7 +26,7 @@
         value: 1
         state: present
 
-    - name: "System | Enable downloading updates in the background"
+    - name: "macOS | Enable downloading updates in the background"
       community.general.osx_defaults:
         domain: com.apple.SoftwareUpdate
         key: AutomaticDownload
@@ -34,7 +34,7 @@
         value: 1
         state: present
 
-    - name: "System | Enable automatic install of critical updates"
+    - name: "macOS | Enable automatic install of critical updates"
       community.general.osx_defaults:
         domain: com.apple.SoftwareUpdate
         key: CriticalUpdateInstall

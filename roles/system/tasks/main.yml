@@ -1,12 +1,12 @@
 ---
-- name: "System | Updates configuration"
+- name: "macOS | Updates configuration"
   tags: configure, never
   include_tasks: updates.yml
 
-- name: "System | Utilities & tools configuration"
+- name: "macOS | Utilities & tools configuration"
   tags: configure, never
   include_tasks: utilities_tools.yml
 
-- name: "System | Mouse & trackpad configuration"
+- name: "macOS | Mouse & trackpad configuration"
   tags: configure, never
   include_tasks: mouse_keyboard.yml

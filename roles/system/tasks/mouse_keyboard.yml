@@ -1,8 +1,8 @@
 ---
-- name: "System | Configure mouse & trackpad settings"
+- name: "macOS | Configure mouse & trackpad settings"
   tags: configure, never
   block:
-    - name: "System | Increase key repeat speed"
+    - name: "macOS | Increase key repeat speed"
       community.general.osx_defaults:
         domain: NSGlobalDomain
         key: KeyRepeat
@@ -10,7 +10,7 @@
         value: 1
         state: present
 
-    - name: "System | Enable tap to click"
+    - name: "macOS | Enable tap to click"
       community.general.osx_defaults:
         domain: com.apple.AppleMultitouchTrackpad
         key: Clicking
@@ -18,7 +18,7 @@
         value: true
         state: present
 
-    - name: "System | Enable global mouse tap to click for currentHost"
+    - name: "macOS | Enable global mouse tap to click for currentHost"
       community.general.osx_defaults:
         domain: NSGlobalDomain
         host: currentHost
@@ -27,7 +27,7 @@
         value: 1
         state: present
 
-    - name: "System | Enable global mouse tap to click globally"
+    - name: "macOS | Enable global mouse tap to click globally"
       community.general.osx_defaults:
         domain: NSGlobalDomain
         key: com.apple.mouse.tapBehavior
