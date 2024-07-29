@@ -1,0 +1,85 @@
+---
+- name: "System | Configure Activity Monitor settings"
+  tags: configure, never
+  block:
+    - name: "System | Set Activity Monitor default window"
+      community.general.osx_defaults:
+        domain: com.apple.ActivityMonitor
+        key: OpenMainWindow
+        type: bool
+        value: true
+        state: present
+
+    - name: "System | Set Activity Monitor dock icon visualization"
+      community.general.osx_defaults:
+        domain: com.apple.ActivityMonitor
+        key: IconType
+        type: int
+        value: 5
+        state: present
+
+    - name: "System | Set Activity Monitor to show all processes"
+      community.general.osx_defaults:
+        domain: com.apple.ActivityMonitor
+        key: ShowCategory
+        type: int
+        value: 0
+        state: present
+
+    # Sort Activity Monitor results by CPU usage
+    - name: "System | Set Activity Monitor sort column"
+      community.general.osx_defaults:
+        domain: com.apple.ActivityMonitor
+        key: SortColumn
+        type: string
+        value: "CPUUsage" 
+        state: present
+
+    - name: "System | Set Activity Monitor sort direction"
+      community.general.osx_defaults:
+        domain: com.apple.ActivityMonitor
+        key: SortDirection
+        type: int
+        value: 0 
+        state: present
+
+- name: "System | Configure Screen Capture settings"
+  tags: configure, never
+  block:
+    - name: "System | Ensure Screenshots directory exists"
+      file:
+        path: ~/Pictures/Screenshots
+        state: directory
+        mode: '0755'
+
+    - name: "System | Set the default screenshots directory"
+      community.general.osx_defaults:
+        domain: com.apple.screencapture
+        key: location
+        type: string
+        value: '{{ lookup("env", "HOME") }}/Pictures/Screenshots'
+        state: present
+      register: screenshots_dir
+
+    - name: "System | Kill the SystemUIServer process"
+      shell: killall SystemUIServer
+      when: screenshots_dir.changed
+
+    - name: "System | Set the default screenshots file type"
+      community.general.osx_defaults:
+        domain: com.apple.screencapture
+        key: type
+        type: string
+        value: "png" 
+        state: present
+
+- name: "System | Configure Time Machine settings"
+  tags: configure, never
+  block:
+    - name: "System | Disable prompt to use new drives for backups"
+      community.general.osx_defaults:
+        domain: com.apple.TimeMachine
+        key: DoNotOfferNewDisksForBackup
+        type: bool
+        value: true 
+        state: present
