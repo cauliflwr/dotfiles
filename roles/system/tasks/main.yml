@@ -1,0 +1,8 @@
+---
+- name: "System | Updates configuration"
+  tags: configure, never
+  include_tasks: updates.yml
+
+- name: "System | Mouse & trackpad configuration"
+  tags: configure, never
+  include_tasks: mouse_keyboard.yml
