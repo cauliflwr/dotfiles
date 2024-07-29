@@ -3,6 +3,10 @@
   tags: configure, never
   include_tasks: updates.yml
 
+- name: "System | Utilities & tools configuration"
+  tags: configure, never
+  include_tasks: utilities_tools.yml
+
 - name: "System | Mouse & trackpad configuration"
   tags: configure, never
   include_tasks: mouse_keyboard.yml
