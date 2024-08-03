@@ -116,7 +116,33 @@ main() {
     echo "${CHECK_MARK} Respawn complete."
 }
 
+# Verify the number and type of provided arguments
+verifyArgs() {
+    # Check the number of args
+    if [[ "$1" -gt 2 ]]; then
+        echo ""
+        echo "Too many arguments provided"
+        usage
+        exit 0
+    elif [[ "$1" -gt 1 &&  ! "$2" =~ "--personal" ]]; then
+        echo ""
+        echo "You must specify only one of --resurrect, --respawn, or --backup"
+        usage
+        exit 0
+    fi
+}
+
+usage() {
+    echo "Usage: [--resurrect|--respawn|--backup] [--personal]"
+}
+
+################################################################################
 ############################ Main execution ####################################
+################################################################################
+
+# Verify the provided arguments
+verifyArgs "$#" "$*"
+
 # Parse command flags
 while [[ "$#" -gt 0 ]]; do
     case $1 in
