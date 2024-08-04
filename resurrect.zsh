@@ -10,6 +10,8 @@
 ############################## Script globals ##################################
 # Whether or not to do a full resurrect
 RESURRECT=""
+RESPAWN=true
+BACKUP=false
 
 # Exclude software less likely to be corporate approved
 PERSONAL=false
@@ -50,6 +52,25 @@ RIGHT_ANGLE="${GREEN}\xE2\x88\x9F${NC}"
 
 
 ############################# Functions ########################################
+# Backup config files
+backup() {
+    if [[ $BACKUP = true ]]; then
+        # Backup
+        echo ""
+        echo "Starting backup with Ansible..."
+        
+        if [[ $PERSONAL = true ]]; then
+            echo "Including all software..."
+            ansible-playbook "./resurrect.yml" --tags "personal,backup"
+        else
+            echo "Limiting to general software..."
+            ansible-playbook "./resurrect.yml" --tags "backup"
+        fi
+
+        echo ""
+        echo "${CHECK_MARK} Backup complete."
+    fi
+}
 # Check for and install Homebrew
 checkForHomebrew() {
     echo "Verifying that Homebrew is installed..."
@@ -78,19 +99,21 @@ checkForHomebrew() {
 
 respawn() {
     # Respawn
-    echo ""
-    echo "Starting respawn with Ansible..."
-    
-    if [[ $PERSONAL = true ]]; then
-        echo "Including all software..."
-        ansible-playbook "./resurrect.yml" --tags "personal,configure"
-    else
-        echo "Limiting to general software..."
-        ansible-playbook "./resurrect.yml" --tags "configure"
-    fi
+    if [[ $RESPAWN = true ]]; then
+        echo ""
+        echo "Starting respawn with Ansible..."
+        
+        if [[ $PERSONAL = true ]]; then
+            echo "Including all software..."
+            ansible-playbook "./resurrect.yml" --tags "personal,configure"
+        else
+            echo "Limiting to general software..."
+            ansible-playbook "./resurrect.yml" --tags "configure"
+        fi
 
-    echo ""
-    echo "${CHECK_MARK} Respawn complete."
+        echo ""
+        echo "${CHECK_MARK} Respawn complete."
+    fi
 }
 
 resurrect() {
@@ -148,6 +171,8 @@ while [[ "$#" -gt 0 ]]; do
             shift;;
         --respawn) RESURRECT=false
             shift;;
+        --backup) BACKUP=true && RESURRECT=false && RESPAWN=false
+            shift;;
         --personal) PERSONAL=true
             shift;;
         *) echo "Unknown parameter: $1"
@@ -159,19 +184,21 @@ done
 if [[ $RESURRECT == "" ]]; then
     echo ""
     echo "Would you like to resurrect or respawn?"
-    vared -p "[r]esurrect, [re]spawn, or [e]exit (default: [e]xit): " -c RES1
+    vared -p "[r]esurrect, [re]spawn, [b]ackup, or [e]exit (default: [e]xit): " -c RES1
     case $RES1 in
         "r"|"resurrect") RESURRECT=true
             ;;
         "re"|"respawn") RESURRECT=false
+            ;;
+        "b"|"backup") BACKUP=true && RESURRECT=false && RESPAWN=false
             ;;
         "e"|"exit") echo "\n${X_MARK} Exiting."
             exit 0;;
         *) echo "Unknown option: $RES"
             exit 1;;
     esac
-    echo "Respawn with all software?"
-    vared -p "[p]ersonal, [w]ork, or [e]exit (default: [p]ersonal): " -c RES2
+    echo "Include all software?"
+    vared -p "[p]ersonal, [w]ork, or [e]exit: " -c RES2
     case $RES2 in
         "p"|"personal") PERSONAL=true
             ;;
@@ -190,5 +217,6 @@ echo "\n${HOT} Let's go!"
 
 resurrect
 respawn
+backup
 
 exit 0
