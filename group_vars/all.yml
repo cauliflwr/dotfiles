@@ -1,4 +1,5 @@
 default_roles:
+  - 1password
   - alacritty
   - awscli
   - balenaetcher

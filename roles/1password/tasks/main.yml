@@ -1,0 +1,32 @@
+---
+- name: "1Password | Configuration"
+  tags: configure, never
+  block:
+    # https://formulae.brew.sh/cask/1password
+    - name: "1Password | Install"
+      community.general.homebrew_cask:
+        name: 1password
+        state: present
+
+    # https://formulae.brew.sh/cask/1password-cli
+    - name: "1Password | CLI Install"
+      community.general.homebrew_cask:
+        name: 1password-cli
+        state: present
+
+    - name: 1Password | Synchronize 1Password SSH agent config 
+      ansible.posix.synchronize:
+        src: 1password/agent.toml
+        dest: ~/.config/1password/ssh/agent.toml
+        delete: true
+        recursive: true
+        
+- name: "1Password | Backup SSH agent Configuration"
+  tags: backup, never
+  block:
+    - name: "1Password | Backup 1Password SSH agent config to dotfiles repo"
+      ansible.posix.synchronize:
+        src: ~/.config/1Password/ssh/agent.toml
+        dest: 1password/
+        delete: true
+        recursive: true
