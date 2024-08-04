@@ -76,11 +76,24 @@ checkForHomebrew() {
     fi
 }
 
-# Run resurrect or respawn based on selected options
-main() {
+respawn() {
+    # Respawn
     echo ""
-    echo "\n${HOT} Let's go!"
+    echo "Starting respawn with Ansible..."
+    
+    if [[ $PERSONAL = true ]]; then
+        echo "Including all software..."
+        ansible-playbook "./resurrect.yml" --tags "personal,configure"
+    else
+        echo "Limiting to general software..."
+        ansible-playbook "./resurrect.yml" --tags "configure"
+    fi
 
+    echo ""
+    echo "${CHECK_MARK} Respawn complete."
+}
+
+resurrect() {
     # Check for Homebrew on resurrect
     if [[ $RESURRECT = true ]]; then
         echo ""
@@ -99,21 +112,6 @@ main() {
         echo ""
         echo "${CHECK_MARK} Resurrect complete."
     fi
-
-    # Respawn
-    echo ""
-    echo "Starting respawn with Ansible..."
-    
-    if [[ $PERSONAL = true ]]; then
-        echo "Including all software..."
-        ansible-playbook "./resurrect.yml" --tags "personal,configure"
-    else
-        echo "Limiting to general software..."
-        ansible-playbook "./resurrect.yml" --tags "configure"
-    fi
-
-    echo ""
-    echo "${CHECK_MARK} Respawn complete."
 }
 
 # Verify the number and type of provided arguments
@@ -186,6 +184,11 @@ if [[ $RESURRECT == "" ]]; then
     esac
 fi
 
-# Run main function to resurrect or respawn
-main
+# Run respawn and/or resurrect
+echo ""
+echo "\n${HOT} Let's go!"
+
+resurrect
+respawn
+
 exit 0
