@@ -61,10 +61,10 @@ backup() {
         
         if [[ $PERSONAL = true ]]; then
             echo "Including all software..."
-            ansible-playbook "./resurrect.yml" --tags "personal,backup"
+            ansible-playbook "${DOTFILES}/resurrect.yml" --tags "personal,backup"
         else
             echo "Limiting to general software..."
-            ansible-playbook "./resurrect.yml" --tags "backup"
+            ansible-playbook "${DOTFILES}/resurrect.yml" --tags "backup"
         fi
 
         echo ""
@@ -105,10 +105,10 @@ respawn() {
         
         if [[ $PERSONAL = true ]]; then
             echo "Including all software..."
-            ansible-playbook "./resurrect.yml" --tags "personal,configure"
+            ansible-playbook "${DOTFILES}/resurrect.yml" --tags "personal,configure"
         else
             echo "Limiting to general software..."
-            ansible-playbook "./resurrect.yml" --tags "configure"
+            ansible-playbook "${DOTFILES}/resurrect.yml" --tags "configure"
         fi
 
         echo ""
